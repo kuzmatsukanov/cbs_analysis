@@ -28,7 +28,7 @@ class MortalityIsrael:
         """
         population = pd.DataFrame(columns=['year'] + list(range(1, 90)))
         for year in range(2008, 2020):
-            table_data = pd.read_excel('population.xlsx', sheet_name=str(year), skiprows=10)
+            table_data = pd.read_excel('data_israel/population.xlsx', sheet_name=str(year), skiprows=10)
             a = []
             for i in range(1, 90):
                 a.append(table_data[i][0])
@@ -40,7 +40,7 @@ class MortalityIsrael:
                                        ignore_index=True)
         population = population.append(pd.DataFrame([[2022] + a], columns=['year'] + list(range(1, 90))),
                                        ignore_index=True)
-        population.to_csv('population_cut.csv', index=False)
+        population.to_csv('data_israel/population_cut.csv', index=False)
         return
 
     def get_population_year(self):
@@ -48,7 +48,7 @@ class MortalityIsrael:
         Creates DataFrame of population over years
         :return: DataFrame year | population | relative coefficient
         """
-        population_table = pd.read_csv('population_2008_2022.csv')
+        population_table = pd.read_csv('data_israel/population_2008_2022.csv')
         population = {}
         for k in range(len(population_table)):
             population_in_year = 0
@@ -71,7 +71,7 @@ class MortalityIsrael:
         age_start_index = int((self.age_start-15)/5)
         age_end_index = int((self.age_end+1-15)/5)-1
         for year in range(2010, 2023, 1):
-            table_data = pd.read_excel('death_data_by_day_of_death_include_only_deaths_of_residents_of_Israel_in_Israel.xlsx', sheet_name=str(year), skiprows=10)
+            table_data = pd.read_excel('data_israel/death_data_by_day_of_death_include_only_deaths_of_residents_of_Israel_in_Israel.xlsx', sheet_name=str(year), skiprows=10)
             death_sum = table_data[self.age_categ[age_start_index]][1:]
             for i in range(age_start_index+1, age_end_index+1):
                 death_sum = death_sum + table_data[self.age_categ[i]][1:]
